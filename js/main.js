@@ -2,7 +2,10 @@
  * Created by Kev on 05/09/2014.
  */
 
-var myApp = angular.module('myApp',[])
+var myApp = myApp || {};
+
+
+myApp = angular.module('myApp',[])
 
 myApp.factory('Avengers', function() {
     var Avengers = {};
