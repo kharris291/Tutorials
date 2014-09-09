@@ -6,10 +6,17 @@
 </head>
 <body>
 
-<div ng-app = "myApp">
-    <superman></superman>
-    <div superman1 flash></div>
+<!--<div ng-app = "myApp">
 
+    <div enter="panel" leave="panel">Hi there.</div>
+
+</div>-->
+<div ng-app="twitterApp">
+    <div ng-controller="AppCtrl">
+        <div enter="loadMoreTweets()">
+            "Roll over me"
+        </div>
+    </div>
 </div>
 
 <script src="../lib/angular.js"></script>

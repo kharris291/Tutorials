@@ -4,8 +4,7 @@
 
 var myApp = myApp || {};
 
-
-myApp = angular.module('myApp',[])
+/*myApp = angular.module('myApp',[])
 
 myApp.directive("superman", function(){
     return{
@@ -35,3 +34,38 @@ myApp.directive("flash", function(){
 
 })
 
+
+myApp.directive("enter",function(){
+    return function(scope, element,attrs){
+        element.bind("mouseenter", function(){
+            element.addClass(attrs.enter);
+        })
+    }
+})
+
+myApp.directive("leave",function(){
+    return function(scope, element, attrs){
+        element.bind("mouseleave", function(){
+            element.removeClass(attrs.leave);
+        })
+    }
+})
+*/
+
+myApp = angular.module("twitterApp",[]);
+
+myApp.controller("AppCtrl", function($scope){
+    $scope.loadMoreTweets = function(){
+        alert("Loading more tweets");
+    }
+    $scope.deleteTweets= function(){
+        alert("deleting tweets");
+    }
+})
+.directive("enter",function(){
+        return function(scope,element,attrs){
+            element.bind("mouseenter",function(){
+                scope.$apply(attrs.enter);
+            })
+        }
+    })
