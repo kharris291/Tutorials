@@ -11,13 +11,32 @@
     <div enter="panel" leave="panel">Hi there.</div>
 
 </div>-->
-<div ng-app="twitterApp">
+<!--<div ng-app="twitterApp">
     <div ng-controller="AppCtrl">
         <div enter="loadMoreTweets()">
             "Roll over me"
         </div>
     </div>
 </div>
+-->
+<!--<div ng-app = "superApp">
+    <superhero flight speed strength>Superman</superhero>
+    <superhero speed>Flash</superhero>
+    <superhero strength>The hulk</superhero>
+
+</div>-->
+
+<!--<div ng-app="choreApp">
+    <kid ng-controller="ChoreCtrl" done="logChore(chore)"></kid>
+</div>-->
+
+<div ng-app="drinkApp">
+    <div ng-controller="AppCtrl">
+        <input type="text" ng-model="ctrlFlavor"/>
+        <div drink flavor="{{ctrlFlavor}}"></div>
+    </div>
+</div>
+
 
 <script src="../lib/angular.js"></script>
 <script src="../js/main.js"></script>

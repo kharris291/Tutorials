@@ -50,7 +50,7 @@ myApp.directive("leave",function(){
         })
     }
 })
-*/
+
 
 myApp = angular.module("twitterApp",[]);
 
@@ -63,9 +63,96 @@ myApp.controller("AppCtrl", function($scope){
     }
 })
 .directive("enter",function(){
-        return function(scope,element,attrs){
-            element.bind("mouseenter",function(){
-                scope.$apply(attrs.enter);
+    return function(scope,element,attrs){
+        element.bind("mouseenter",function(){
+            scope.$apply(attrs.enter);
+        })
+    }
+})
+
+
+myApp = angular.module("superApp",[]);
+
+myApp.directive("superhero", function(){
+    return{
+        restrict: "E",
+        scope:{},
+        controller: function($scope){
+            $scope.abilities = [];
+            this.addStrength = function(){
+                $scope.abilities.push("strength")
+            }
+            this.addSpeed = function(){
+                $scope.abilities.push("speed")
+            }
+            this.addFlight = function(){
+                $scope.abilities.push("flight")
+            }
+        },
+        link: function(scope, element){
+            element.addClass("button");
+            element.bind("mouseenter", function(){
+                console.log(scope.abilities);
             })
         }
-    })
+    }
+
+}).directive("strength",function(){
+    return{
+        require:"superhero",
+        link:function(scope,element,attrs,superheroCtrl){
+            superheroCtrl.addStrength();
+        }
+    }
+}).directive("speed",function(){
+    return{
+        require:"superhero",
+        link:function(scope,element,attrs,superheroCtrl){
+            superheroCtrl.addSpeed();
+        }
+    }
+}).directive("flight",function(){
+    return{
+        require:"superhero",
+        link:function(scope,element,attrs,superheroCtrl){
+            superheroCtrl.addFlight();
+        }
+    }
+})
+
+myApp = angular.module('choreApp',[]);
+
+
+myApp.controller("ChoreCtrl", function($scope){
+        $scope.logChore = function (chore) {
+            alert(chore + " is done!");
+        }
+    }
+
+).directive("kid",function(){
+    return{
+        restrict: "E",
+        scope:{
+            done:"&"
+        },
+        template: '<input type="text" ng-model="chore">'+
+            '{{chore}}'+
+            '<div class="button" ng-click="done({chore:chore})">I\'m done</div>'
+    }
+});*/
+myApp = angular.module('drinkApp',[])
+myApp.controller("AppCtrl", ['$scope', function (pope) {
+    pope.ctrlFlavor="blackberry"
+}])
+
+myApp.directive("drink",function(){
+    return{
+        scope:{
+            flavor:"@"
+        },
+        template:'<div>{{flavor}}</div>'
+        /*link:function(scope,element,attrs){
+            scope.flavor=attrs.flavor;
+        }*/
+    }
+})
