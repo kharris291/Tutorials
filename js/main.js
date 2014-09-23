@@ -171,7 +171,7 @@ var myApp = myApp || {};
  scope.flavor=attrs.flavor;
  }
  }
- })*/
+ })
 
 myApp = angular.module('phoneApp',[]);
 
@@ -190,3 +190,26 @@ myApp.directive("phone",function(){
             '<div class="button" ng-click="dial({message:value})">Call Home</div>'
     }
 })
+
+
+myApp = angular.module('phoneApp',[]);
+
+var myApps = {};
+myApps.AppCtrl = function($scope){
+    this.sayHi = function(){
+        alert("hi")
+    }
+    return $scope.AppCtrl = this
+};
+
+var directives = {}
+directives.panel = function(){
+    return{
+        restrict:"E"
+    }
+}
+
+myApp.directive(directives);
+myApp.controller(myApps);
+    */
+myApp = angular.module('phoneApp',[]);
