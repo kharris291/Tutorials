@@ -6,7 +6,8 @@ var myApp = myApp || {};
 
 myApp = angular.module('app',[]);
 
-myApp.directive("zippy",function(){
+myApp.directive("zippy",function($templateCache){
+
     return{
         restrict:"E",
         transclude:true,
@@ -16,9 +17,12 @@ myApp.directive("zippy",function(){
         templateUrl:'./zippy.html',
         link:function(scope){
             scope.isContentVisible=false;
+
             scope.toogleContent = function(){
                 scope.isContentVisible=!scope.isContentVisible;
             }
         }
     }
+
+
 });
