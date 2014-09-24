@@ -4,25 +4,36 @@
 
 var myApp = myApp || {};
 
-myApp = angular.module('app',[]);
+myApp = angular.module('app',['ngRoute']);
 
-myApp.directive("zippy",function($templateCache){
+myApp.config(function($routeProvider){
+    $routeProvider.when('/',
+        {
+            templateUrl:"./view/app.html",
+            controller:"AppCtrl"
+        })
+        .when('/:message',
+        {
+            templateUrl:"./view/app.html",
+            controller:"AppCtrl"
+        }).when('/map/:country/:state/:city',
+        {
+            templateUrl:"./view/app.html",
+            controller:"AppCtrl"
+        })
+        .when('/pizza',{
+            template:"YUM"
+        })
+        .otherwise({
+            redirectTo:"/"
+        })
+});
 
-    return{
-        restrict:"E",
-        transclude:true,
-        scope:{
-            title:"@"
-        },
-        templateUrl:'./zippy.html',
-        link:function(scope){
-            scope.isContentVisible=false;
-
-            scope.toogleContent = function(){
-                scope.isContentVisible=!scope.isContentVisible;
-            }
-        }
+myApp.controller("AppCtrl", function($scope,$routeParams){
+    $scope.model ={
+        message: "Address: "
+            + $routeParams.country +", "
+            + $routeParams.state +", "
+            + $routeParams.city+", "
     }
-
-
 });
