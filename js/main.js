@@ -10,36 +10,58 @@ myApp.config(function($routeProvider){
     $routeProvider.when('/',
         {
             templateUrl:"./view/app.html",
-            controller:"AppCtrl",
+            controller:"ViewCtrl",
             resolve:{
-                loadData:appCtrl.loadData,
-                prepData:appCtrl.prepData
+                loadData:viewCtrl.loadData
+            }
+        }).when('/new',
+        {
+            templateUrl:"./view/new.html",
+            controller:"NewCtrl",
+            resolve:{
+                loadData:viewCtrl.loadData
             }
         })
 });
 
-var appCtrl = myApp.controller("AppCtrl", function($scope,$q){
-    $scope.model ={
-        message: "This is my app"
+myApp.directive("error",function($rootScope){
+    return{
+        restrict:"E",
+        templateUrl:"./view/error.html",
+        link:function(scope){
+            $rootScope.$on("$routeChangeError", function(event,current,previous,rejection){
+                scope.isError = true;
+            })
+        }
+    }
+})
+
+
+myApp.controller("AppCtrl",function($scope,$rootScope,$route,$location){
+    $rootScope.$on("$routeChangeStart", function(event,current,previous,rejection){
+        console.log(rejection)
+    })
+    $rootScope.$on("$routeChangeSuccess", function(event,current,previous,rejection){
+        console.log(rejection)
+    })
+})
+
+var viewCtrl = myApp.controller("ViewCtrl", function($scope,$q,$location){
+    $scope.changeRoute = function(){
+        $location.path("/new");
     }
 });
 
-appCtrl.loadData=function($q, $timeout){
+myApp.controller("NewCtrl",function($scope,loadData,$template){
+
+})
+
+viewCtrl.loadData=function($q, $timeout){
     var defer = $q.defer();
 
     $timeout(function(){
-        defer.resolve("loadData");
-    },2000);
+        defer.resolve("success");
+    },500);
 
     return defer.promise;
 };
-
-appCtrl.prepData = function($q, $timeout){
-    var defer = $q.defer();
-
-    $timeout(function(){
-        defer.resolve("prepData");
-    },2000);
-
-    return defer.promise;
-}
