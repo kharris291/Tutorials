@@ -10,30 +10,36 @@ myApp.config(function($routeProvider){
     $routeProvider.when('/',
         {
             templateUrl:"./view/app.html",
-            controller:"AppCtrl"
-        })
-        .when('/:message',
-        {
-            templateUrl:"./view/app.html",
-            controller:"AppCtrl"
-        }).when('/map/:country/:state/:city',
-        {
-            templateUrl:"./view/app.html",
-            controller:"AppCtrl"
-        })
-        .when('/pizza',{
-            template:"YUM"
-        })
-        .otherwise({
-            redirectTo:"/"
+            controller:"AppCtrl",
+            resolve:{
+                loadData:appCtrl.loadData,
+                prepData:appCtrl.prepData
+            }
         })
 });
 
-myApp.controller("AppCtrl", function($scope,$routeParams){
+var appCtrl = myApp.controller("AppCtrl", function($scope,$q){
     $scope.model ={
-        message: "Address: "
-            + $routeParams.country +", "
-            + $routeParams.state +", "
-            + $routeParams.city+", "
+        message: "This is my app"
     }
 });
+
+appCtrl.loadData=function($q, $timeout){
+    var defer = $q.defer();
+
+    $timeout(function(){
+        defer.resolve("loadData");
+    },2000);
+
+    return defer.promise;
+};
+
+appCtrl.prepData = function($q, $timeout){
+    var defer = $q.defer();
+
+    $timeout(function(){
+        defer.resolve("prepData");
+    },2000);
+
+    return defer.promise;
+}
